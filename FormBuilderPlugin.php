@@ -39,6 +39,20 @@ class FormBuilderPlugin extends BasePlugin
 	  return new FormBuilderTwigExtension();
 	}
 
+	protected function defineSettings()
+	{
+		return array(
+			'inputTemplates'     => AttributeType::String,
+		);
+	}
+
+	public function getSettingsHtml()
+	{
+		return craft()->templates->render('formbuilder/settings/', array(
+			'settings' => $this->getSettings(),
+		));
+	}
+
 	public function hasCpSection()
 	{
 		return true;
@@ -48,6 +62,7 @@ class FormBuilderPlugin extends BasePlugin
 	{
 		return array(
 			'formbuilder'                                       => array('action' => 'formBuilder/forms/formIndex'),
+			'formbuilder/settings'                              => array('action' => 'formBuilder/forms/settingsIndex'),
 			'formbuilder/forms'                                 => array('action' => 'formBuilder/forms/formIndex'),
 			'formbuilder/forms/new'                             => array('action' => 'formBuilder/forms/editForm'),
 			'formbuilder/forms/(?P<formId>\d+)'                 => array('action' => 'formBuilder/forms/editForm'),

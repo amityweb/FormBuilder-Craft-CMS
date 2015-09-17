@@ -1,0 +1,12 @@
+{% import "_includes/forms" as forms %}
+
+{% set config = {
+	id: id,
+	label: name,
+	name: name,
+	value: settings.value,
+	class: 'nicetext',
+	showCharsLeft: true,
+} %}
+
+{{ forms.hidden(config) }}
