@@ -119,6 +119,11 @@ class FormBuilder_EntriesController extends BaseController
       $verified = true;
     }
 
+    // Fire an 'onBeforeSave' event
+    Craft::import('plugins.formbuilder.events.formbuilder_FormEntriesEvent');
+    $event = new formbuilder_FormEntriesEvent($this, array('entry' => $formBuilderEntry));
+    craft()->formBuilder_entries->onBeforeSave($event);
+
     // Save Form Entry
     if ($verified && $fileupload && craft()->formBuilder_entries->saveFormEntry($formBuilderEntry)) {
 

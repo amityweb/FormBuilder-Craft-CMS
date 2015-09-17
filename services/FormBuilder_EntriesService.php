@@ -5,6 +5,14 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 {
 
 	//======================================================================
+	// Fires 'onBeforeSave' Form Entry
+	//======================================================================
+	public function onBeforeSave(FormBuilder_FormEntriesEvent $event)
+	{
+		$this->raiseEvent('onBeforeSave', $event);
+	}
+
+	//======================================================================
 	// Get All Entries
 	//======================================================================
 	public function getAllEntries()
