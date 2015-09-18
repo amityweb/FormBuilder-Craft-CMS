@@ -30,6 +30,14 @@
     {% endfor %}
     
     {# Error/Success Messages #}
+    {% if errors is defined and errors | length %}
+      <ul class="errors">
+      {% for error in errors %}
+       <li class="error-message">{{ error }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    
     {% if craft.session.hasFlash('error') or craft.session.hasFlash('success') %}
       {% if craft.session.hasFlash('error') %}<div class="formbuilder-notification"><p class="error-message">{{ craft.session.getFlash('error') | raw }}<p></div>{% endif %}
       {% if craft.session.hasFlash('success') %}<div class="formbuilder-notification success"><p class="success-message">{{ craft.session.getFlash('success') | raw }}</p></div>{% endif %}
