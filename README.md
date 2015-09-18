@@ -37,6 +37,7 @@
 * | FormBuilder | Multi-Select
 * | FormBuilder | Plain Text
 * | FormBuilder | Radio Buttons
+* | FormBuilder | Hidden Field
 
 ***
 
