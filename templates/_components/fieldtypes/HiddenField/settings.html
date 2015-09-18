@@ -1,0 +1,24 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+	label: "Optional Value"|t,
+  instructions: "Add optional value to this hidden field. You can use twigg template tags here. Example: {{ entry.title }}"|t,
+	id: 'value',
+	name: 'value',
+	value: settings.value,
+	translatable: true,
+	errors: settings.getErrors('value')
+}) }}
+
+
+{% set js %}
+	$('.fieldtoggle').on('change', function(e){
+		var target = e.target.value;
+		if (target == 'FormBuilder_Hidden') {
+			$('#instructions-field').hide();
+		} else {
+			$('#instructions-field').show();
+		}
+	});
+{% endset %}
+{% includeJs js %}

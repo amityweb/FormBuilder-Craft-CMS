@@ -15,6 +15,7 @@ ajaxForm = function() {
     if ($(this).parsley().isValid()) {
       data = $(this).serialize();
       return $.post(url, data, function(response) {
+        console.log(response);
         if (response.success) {
           if (redirect === '1') {
             return window.location.href = redirectUrl;

@@ -120,7 +120,7 @@ class FormBuilder_EntriesController extends BaseController
       $validated = true;
     }
 
-    if ($verified == true) {
+    if (($verified == true) && (!$ajaxSubmit)) {
       $validated = craft()->formBuilder_entries->validateEntry($form, $postData);
       if (empty($validated)) {
         $validated = true;
@@ -129,7 +129,6 @@ class FormBuilder_EntriesController extends BaseController
           craft()->userSession->setFlash('error', $value);
         }
         craft()->urlManager->setRouteVariables(array(
-          'data' => $postData,
           'errors' => $validated
         ));
         $validated = false;

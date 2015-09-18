@@ -152,14 +152,12 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
         craft()->userSession->setFlash('error', $message);
         return $message;
       };
-
   		switch ($field->type) {
         case "FormBuilder_PlainText":
         	if ($field->required) {
 	        	$text = craft()->request->getPost($field->handle);
 	      		if ($text == '') {
 	      			$errorMessage[] = $field->name . ' cannot be blank.';
-	      	    // $_processError($field, $field->name . " cannot be blank.");
 	      		}
         	}
         break;
@@ -168,7 +166,6 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 	        	$number = craft()->request->getPost($field->handle);
 	        	if (!ctype_digit($number)) {
 	      			$errorMessage[] = $field->name . ' cannot be blank and needs to contain only numbers.';
-	            // $_processError($field, $field->name . " cannot be blank and needs to contain only numbers.");
 	        	}
         	}
         break;
@@ -176,8 +173,39 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
         	$email = craft()->request->getPost($field->handle);
         	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       			$errorMessage[] = $field->name . ' needs to contain a valid email.';
-            // $_processError($field, $field->name . " needs to contain a valid email.");
         	}
+        break;
+        case "FormBuilder_MultiSelect":
+          if ($field->required) {
+            $multiselect = craft()->request->getPost($field->handle);
+            if ($multiselect == '') {
+              $errorMessage[] = $field->name . ' please select at least one.';
+            }
+          }
+        break;
+        case "FormBuilder_RadioButtons":
+          if ($field->required) {
+            $radiobuttons = craft()->request->getPost($field->handle);
+            if ($radiobuttons == '') {
+              $errorMessage[] = $field->name . ' please select one.';
+            }
+          }
+        break;
+        case "FormBuilder_Dropdown":
+          if ($field->required) {
+            $dropdown = craft()->request->getPost($field->handle);
+            if ($dropdown == '') {
+              $errorMessage[] = $field->name . ' please select one.';
+            }
+          }
+        break;
+        case "FormBuilder_Checkboxes":
+          if ($field->required) {
+            $checkbox = craft()->request->getPost($field->handle);
+            if (count($checkbox) == 1) {
+              $errorMessage[] = $field->name . ' please select at least one.';
+            }
+          }
         break;
       }
   	}
