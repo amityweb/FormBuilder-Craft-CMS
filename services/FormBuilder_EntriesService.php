@@ -129,4 +129,58 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 		return $errors ? false : true;
 	}
 
+	//======================================================================
+  // Validate values of a submitted form
+  //======================================================================
+  public function validateEntry($form, $postData){
+  	$fieldLayoutFields = $form->getFieldLayout()->getFields();
+  	
+  	$errorMessage = [];
+
+  	foreach ($fieldLayoutFields as $key => $fieldLayoutField) {
+      $requiredField = $fieldLayoutField->attributes['required'];
+  		$fieldId = $fieldLayoutField->fieldId;
+      $field = craft()->fields->getFieldById($fieldId);
+
+  		$userValue = (array_key_exists($field->handle, $postData)) ? $postData[$field->handle] : false;          
+
+      if ($requiredField == 1) {
+  			$field->required = true;
+      }
+  		
+  		$_processError = function($field, $message) {
+        craft()->userSession->setFlash('error', $message);
+        return $message;
+      };
+
+  		switch ($field->type) {
+        case "FormBuilder_PlainText":
+        	if ($field->required) {
+	        	$text = craft()->request->getPost($field->handle);
+	      		if ($text == '') {
+	      			$errorMessage[] = $field->name . ' cannot be blank.';
+	      	    // $_processError($field, $field->name . " cannot be blank.");
+	      		}
+        	}
+        break;
+        case "FormBuilder_Number":
+        	if ($field->required) {
+	        	$number = craft()->request->getPost($field->handle);
+	        	if (!ctype_digit($number)) {
+	      			$errorMessage[] = $field->name . ' cannot be blank and needs to contain only numbers.';
+	            // $_processError($field, $field->name . " cannot be blank and needs to contain only numbers.");
+	        	}
+        	}
+        break;
+        case "FormBuilder_Email":
+        	$email = craft()->request->getPost($field->handle);
+        	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      			$errorMessage[] = $field->name . ' needs to contain a valid email.';
+            // $_processError($field, $field->name . " needs to contain a valid email.");
+        	}
+        break;
+      }
+  	}
+    return $errorMessage;
+  }
 }

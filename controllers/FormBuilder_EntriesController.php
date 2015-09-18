@@ -117,6 +117,23 @@ class FormBuilder_EntriesController extends BaseController
       }
     } else {
       $verified = true;
+      $validated = true;
+    }
+
+    if ($verified == true) {
+      $validated = craft()->formBuilder_entries->validateEntry($form, $postData);
+      if (empty($validated)) {
+        $validated = true;
+      } else {
+        foreach ($validated as $key => $value) {
+          craft()->userSession->setFlash('error', $value);
+        }
+        craft()->urlManager->setRouteVariables(array(
+          'data' => $postData,
+          'errors' => $validated
+        ));
+        $validated = false;
+      }
     }
 
     // Fire an 'onBeforeSave' event
@@ -125,7 +142,7 @@ class FormBuilder_EntriesController extends BaseController
     craft()->formBuilder_entries->onBeforeSave($event);
 
     // Save Form Entry
-    if ($verified && $fileupload && craft()->formBuilder_entries->saveFormEntry($formBuilderEntry)) {
+    if ($verified && $validated && $fileupload && craft()->formBuilder_entries->saveFormEntry($formBuilderEntry)) {
 
       // Save Uploaded File
       if ($validExtension) {
@@ -156,8 +173,7 @@ class FormBuilder_EntriesController extends BaseController
           $fileupload = false;
         }
 
-      } // Valid extension
-
+      }
 
       if ($form->notifyFormAdmin && $form->toEmail != '') {
         $this->_sendEmailNotification($formBuilderEntry, $form);
@@ -199,7 +215,7 @@ class FormBuilder_EntriesController extends BaseController
       if (!empty($form->errorMessage)) {
         $errorMessage = $form->errorMessage;
       } else {
-        $errorMessage =  Craft::t('We\'re sorry, but something has gone wrong.');
+        $errorMessage =  Craft::t('Please check errors and submit again.');
       }
 
       if ($ajax) {

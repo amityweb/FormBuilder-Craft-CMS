@@ -11,7 +11,7 @@ class FormBuilder_PlainTextFieldType extends BaseFieldType
     return Craft::t('| FormBuilder | Plain Text');
   }
 
- //======================================================================
+  //======================================================================
   // Get Settings HTML
   //======================================================================
   public function getSettingsHtml()
@@ -23,7 +23,7 @@ class FormBuilder_PlainTextFieldType extends BaseFieldType
     return $settings;
   }
 
- //======================================================================
+  //======================================================================
   // Define Content Attribute
   //======================================================================
   public function defineContentAttribute()
