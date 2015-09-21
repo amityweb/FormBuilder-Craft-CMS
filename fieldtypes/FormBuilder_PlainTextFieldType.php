@@ -70,10 +70,11 @@ class FormBuilder_PlainTextFieldType extends BaseFieldType
   protected function defineSettings()
   {
     return array(
-      'placeholder'   => array(AttributeType::String),
-      'multiline'     => array(AttributeType::Bool),
-      'initialRows'   => array(AttributeType::Number, 'min' => 1, 'default' => 4),
-      'maxLength'     => array(AttributeType::Number, 'min' => 0),
+      'validationType'    => array(AttributeType::String),
+      'placeholder'       => array(AttributeType::String),
+      'multiline'         => array(AttributeType::Bool),
+      'initialRows'       => array(AttributeType::Number, 'min' => 1, 'default' => 4),
+      'maxLength'         => array(AttributeType::Number, 'min' => 0),
     );
   }
 }

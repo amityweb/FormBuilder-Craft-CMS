@@ -1,26 +1,33 @@
 {% import "_includes/forms" as forms %}
 
-{{ forms.select({
-  label: "Validation Type"|t,
-  id: 'validationType',
-  name: 'validationType',
-  options: [
-    {label: 'None', value: '0'},
-    {label: 'AlphaNumeric', value: '1'},
-    {label: 'Alpha', value: '2'},
-    {label: 'Numeric', value: '3'},
-    {label: 'Email', value: '4'},
-    {label: 'Telephone Number', value: '5'},
-    {label: 'Address', value: '6'},
-    {label: 'Date', value: '7'}
-  ],
-  value: settings.validationType ? settings.validationType : settings.validationType,
-  errors: settings.getErrors('validationType')
-}) }}
+<div class="field" id="types-FormBuilder_PlainText-validationType-field">
+	<div class="heading">
+		<label for="types-FormBuilder_PlainText-validationType">{{ "Validation Type"|t }}</label>
+		<div class="instructions"><p>{{ "If you need this field validated, please select validation type."|t }}</p></div>
+	</div>
+
+	{{ forms.select({
+	  label: "Validation Type"|t,
+	  instructions: "If you need this field validated, please select validation type."|t,
+	  id: 'validationType',
+	  name: 'validationType',
+	  options: [
+	    {label: 'None', value: '1'},
+	    {label: 'AlphaNumeric', value: '2'},
+	    {label: 'Alpha', value: '3'},
+	    {label: 'Numeric', value: '4'},
+	    {label: 'Email', value: '5'},
+	    {label: 'Telephone Number', value: '6'},
+	    {label: 'URL', value: '7'}
+	  ],
+	  value: settings.validationType ? settings.validationType : settings.validationType,
+	  errors: settings.getErrors('validationType')
+	}) }}
+</div>
 
 {{ forms.textField({
 	label: "Placeholder Text"|t,
-    instructions: "The text that will be shown if the field doesn’t have a value."|t,
+  instructions: "The text that will be shown if the field doesn’t have a value."|t,
 	id: 'placeholder',
 	name: 'placeholder',
 	value: settings.placeholder,

@@ -141,13 +141,15 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
   //======================================================================
   public function validateEntry($form, $postData){
   	$fieldLayoutFields = $form->getFieldLayout()->getFields();
-  	
   	$errorMessage = [];
 
   	foreach ($fieldLayoutFields as $key => $fieldLayoutField) {
       $requiredField = $fieldLayoutField->attributes['required'];
   		$fieldId = $fieldLayoutField->fieldId;
       $field = craft()->fields->getFieldById($fieldId);
+
+      var_dump($field);
+      die();
 
   		$userValue = (array_key_exists($field->handle, $postData)) ? $postData[$field->handle] : false;          
 
