@@ -116,9 +116,16 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 		$email = new EmailModel();
 		$emailTo = explode(',', $form->toEmail);
 
-		$email->toEmail   = $submitterEmail;
-		$email->fromEmail = $emailTo[0];
-		$email->replyTo   = $emailTo[0];
+    if ($emailTo[0] == '') {
+      $adminEmail = craft()->systemSettings->getSetting('email', 'emailAddress');
+      $email->fromEmail = $adminEmail;
+		  $email->replyTo   = $adminEmail;
+    } else {
+      $email->fromEmail = $emailTo[0];
+      $email->replyTo   = $emailTo[0];
+    }
+
+    $email->toEmail   = $submitterEmail;
 		$email->fromName  = craft()->getSiteName() . ' | Submission Notification';
 		$email->subject   = $form->subject;
 		$email->htmlBody  = $message;
