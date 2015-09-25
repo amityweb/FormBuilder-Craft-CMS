@@ -16,7 +16,7 @@ class FormBuilder_PlainTextFieldType extends BaseFieldType
   //======================================================================
   public function getSettingsHtml()
   {
-    $settings = craft()->templates->render('formbuilder/_components/fieldtypes/PlainText/settings', array(
+    $settings = craft()->templates->render('_components/fieldtypes/PlainText/settings', array(
       'settings' => $this->getSettings()
     ));
 

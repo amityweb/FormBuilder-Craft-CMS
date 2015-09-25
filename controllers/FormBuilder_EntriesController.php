@@ -26,12 +26,21 @@ class FormBuilder_EntriesController extends BaseController
   //======================================================================
 	public function actionViewEntry(array $variables = array())
 	{
-		$entry              = craft()->formBuilder_entries->getFormEntryById($variables['entryId']);
+    $entry              = craft()->formBuilder_entries->getFormEntryById($variables['entryId']);
+    $form               = craft()->formBuilder_forms->getFormById($entry->formId);
 		$variables['entry'] = $entry;
 
 		if (empty($entry)) { throw new HttpException(404); }
 
-		$variables['form']        = craft()->formBuilder_forms->getFormById($entry->formId);
+    // Check if form has files to display
+    if ($form->hasFileUploads) {
+      $fileName = craft()->assets->getFileById('800');
+      $file = UrlHelper::getResourceUrl('formbuilder/uploads/'.$fileName.'.png');
+      echo '<img src='.$file.' />';
+      var_dump($file);
+    }
+
+		$variables['form']        = $form;
 		$variables['tabs']        = $this->_getTabs();
 		$variables['selectedTab'] = 'entries';
 		$variables['data']        = json_decode($entry->data, true);
@@ -84,9 +93,13 @@ class FormBuilder_EntriesController extends BaseController
         }
 
         if ($validExtension) {
-          // Create formbuilder directory inside craft/storage if one doesn't exist
-          $storagePath = craft()->path->getStoragePath();
-          $myStoragePath = $storagePath . 'formbuilder/';
+          // Put all uploaded files into formbuilder/resources/uploads/ folder
+          // $pluginPath = UrlHelper::getResourceUrl('formbuilder/uploads/');
+          $pluginPath = craft()->path->getPluginsPath();
+          $myStoragePath = $pluginPath . 'formbuilder/resources/uploads/';
+
+          // $storagePath = craft()->path->getStoragePath();
+          // $myStoragePath = $storagePath . 'formbuilder/';
           IOHelper::ensureFolderExists($myStoragePath);
           $uploadDir = $myStoragePath;
 

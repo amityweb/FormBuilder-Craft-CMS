@@ -23,6 +23,7 @@
 
     {% for name, value in data %}
       {% set field = craft.fields.getFieldByHandle(name) %}
+
       {% if value %}
 
       <tr>
