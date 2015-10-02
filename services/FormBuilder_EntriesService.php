@@ -7,10 +7,10 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 	//======================================================================
 	// Fires 'onBeforeSave' Form Entry
 	//======================================================================
-	public function onBeforeSave(FormBuilder_FormEntriesEvent $event)
-	{
-		$this->raiseEvent('onBeforeSave', $event);
-	}
+  public function onBeforeSave(Event $event)
+  {
+    $this->raiseEvent('onBeforeSave', $event);
+  }
 
 	//======================================================================
 	// Get All Entries
@@ -56,6 +56,11 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 	//======================================================================
 	public function saveFormEntry(FormBuilder_EntryModel $entry)
 	{
+    // Fire Before Save Event
+    $this->onBeforeSave(new Event($this, array(
+      'entry' => $entry
+    )));
+
 		$entryRecord = new FormBuilder_EntryRecord();
 
 		$entryRecord->formId 	= $entry->formId;
@@ -222,4 +227,5 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
   	}
     return $errorMessage;
   }
+
 }
