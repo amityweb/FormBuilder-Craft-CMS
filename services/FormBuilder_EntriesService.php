@@ -95,7 +95,8 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 	{	
 		$errors = false;
 		$email = new EmailModel();
-		$emailTo = explode(',', $form->toEmail);
+    $cleanEmails = str_replace(' ', '', $form->toEmail);
+		$emailTo = explode(',', $cleanEmails);
 
 		$email->toEmail		= $form->toEmail;
 		$email->replyTo   = $emailTo[0];
@@ -119,7 +120,8 @@ class FormBuilder_EntriesService extends BaseApplicationComponent
 	{
 		$errors = false;
 		$email = new EmailModel();
-		$emailTo = explode(',', $form->toEmail);
+    $cleanEmails = str_replace(' ', '', $form->toEmail);
+		$emailTo = explode(',', $cleanEmails);
 
     if ($emailTo[0] == '') {
       $adminEmail = craft()->systemSettings->getSetting('email', 'emailAddress');
