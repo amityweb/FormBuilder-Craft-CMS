@@ -6,7 +6,7 @@
 
 ***
 
-**Note** - I have updated a lot of the code so if you have already been using this pluging you'll need to uninstall it first and install it again. Sorry, but there were a lot of changes and creating db migrations was not an option. 
+**Note** - I have updated a lot of the code so if you have already been using this plugin you'll need to uninstall it first and install it again. Sorry, but there were a lot of changes and creating db migrations was not an option. 
 
 # Installation
 
@@ -25,7 +25,7 @@
 
 # Create Fields
 
-* Got to `/settings/fields` and hit `+ New Field`
+* Go to `/settings/fields` and hit `+ New Field`
 * Fill out the field's information. Make sure to use `| FormBuilder |` fields only.
 
 #### Available Fields
@@ -48,8 +48,8 @@
   * ##### Form Settings
   
     **Form Name** - Enter name of your form<br />
-    **Hand** - Will be generated automatically<br />
-    **Email Subje** - This will be subject line for email notifications<br />
+    **Handle** - Will be generated automatically<br />
+    **Email Subject** - This will be the subject line for email notifications<br />
     **Use AJAX?** - Check this if you want the form submission via ajax, this will use javascript to validate `required` fields<br />
     **Use reCaptcha?** - Check this if you want to use Google reCaptcha. Requires this following plugin to be installed: [Craft reCaptcha](https://github.com/aberkie/craft-recaptcha/) <br />
     **Redirect To Success Page** - Check if you want to redirect to a success page (ex: "/thank-you")<br />
@@ -88,7 +88,7 @@
 
 # File Uploads
 
-`Note:` For now this only works with regular post requests. If your form uses AJAX, file uplodas will not work. If you're updating your plugin please add this to your `<form>` tag `{% if form.hasFileUploads %} enctype="multipart/form-data" {% endif %}`, check `sampleForm.html` for example.
+`Note:` For now this only works with regular post requests. If your form uses AJAX, file uploads will not work. If you're updating your plugin please add this to your `<form>` tag `{% if form.hasFileUploads %} enctype="multipart/form-data" {% endif %}`, check `sampleForm.html` for example.
 
 * First you need to create an Asset Source. Go to `settings//assets` and hit `+ New Source`
 * Give your source a name, for `Type` please select `Local Folder`. Local Folder is the only thing that's supported for now.
