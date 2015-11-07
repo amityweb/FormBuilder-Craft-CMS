@@ -1,3 +1,14 @@
+# New version of FormBuilder 2 is out! Please check it out. I'm hoping to stop supporting this project and only support FormBuilder 2 because it's way better.
+
+[Project Website]()
+
+[Project Repo](https://github.com/roundhouse/FormBuilder-2-Craft-CMS)
+
+
+
+
+***
+
 ![image](http://vadim-dev.s3.amazonaws.com/formbuilder/formBuilder_logo.png)
 
 [![image](https://img.shields.io/badge/version-1.4.3-brightgreen.svg)](https://github.com/roundhouse/FormBuilder-Craft-CMS)
