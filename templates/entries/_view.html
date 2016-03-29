@@ -52,6 +52,7 @@
   <hr>
 
   <form method="post" accept-charset="utf-8">
+    {{ getCsrfInput() }}
     <input type="hidden" name="action" value="formBuilder/entries/deleteEntry">
     <input type="hidden" name="redirect" value="formbuilder/entries">
     <input type="hidden" name="entryId" value="{{ entry.id }}">
