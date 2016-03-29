@@ -314,10 +314,11 @@ class FormBuilder_EntriesController extends BaseController
 	protected function _filterPostKeys($post)
 	{
 		$filterKeys = array(
-      'action',
-      'formredirect',
+      			'action',
+      			'formredirect',
 			'g-recaptcha-response',
-      'formhandle'
+      			'formhandle',
+        		craft()->config->get('csrfTokenName')
 		);
 		if (is_array($post)) {
 			foreach ($post as $k => $v) {
